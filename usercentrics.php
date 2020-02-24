@@ -59,13 +59,25 @@ class usercentrics extends modules {
 	protected function load_settings(): usercentrics {
 		$this->get_setting('activate')
 			->set_title( __( 'Activate', 'sv_tracking_manager' ) )
-			->set_description('Enable Usercentrics support')
+			->set_description(__('Enable Usercentrics support','sv_tracking_manager'))
 			->load_type( 'checkbox' );
 
 		$this->get_setting('id')
 			->set_title( __( 'Settings ID', 'sv_tracking_manager' ) )
-			->set_description('The Usercentrics Settings ID for this site.')
+			->set_description(__('The Usercentrics Settings ID for this site.','sv_tracking_manager'))
 			->load_type( 'text' );
+
+		$this->get_setting('activate_shield')
+			->set_title( __( 'Activate Privacy Shield', 'sv_tracking_manager' ) )
+			->set_description(
+				sprintf(
+					__('Enable %1$sUsercentrics Privacy Shield%2$s support to ask user before loading embeded content like Youtube or Google Maps.','sv_tracking_manager'),
+				'<a href="' . esc_url( 'https://docs.usercentrics.com/#/privacy-shield' ) . '" target="_blank">',
+				'</a>'
+				)
+			)
+			->load_type( 'checkbox' );
+
 
 		return $this;
 	}
@@ -88,6 +100,17 @@ class usercentrics extends modules {
 		}
 		return true;
 	}
+	public function is_activate_shield(): bool{
+		// Setting ID not set
+		if(!$this->get_setting('activate_shield')->run_type()->get_data()){
+			return false;
+		}
+		// Setting ID empty
+		if(strlen(trim($this->get_setting('activate_shield')->run_type()->get_data())) === 0){
+			return false;
+		}
+		return true;
+	}
 	public function get_consent_IDs(): array{
 		return $this->consent_IDs;
 	}
@@ -98,17 +121,56 @@ class usercentrics extends modules {
 		return isset($this->consent_IDs[$ID]) ? true : false;
 	}
 	public function load(): usercentrics{
-		if($this->is_active()){
-			$this->get_script('usercentrics')
-				->set_type('js')
-				->set_is_enqueued()
-				->set_path('https://app.usercentrics.eu/latest/main.js')
-				->set_custom_attributes(' id="'.$this->get_setting('id')->run_type()->get_data().'"');;
-
-			add_filter( 'rocket_minify_excluded_external_js', array($this,'rocket_minify_excluded_external_js') );
+		if(!$this->is_active()) {
+			return $this;
 		}
 
+		add_action( 'wp_head', array($this,'load_cookie_banner'));
+		add_filter( 'rocket_minify_excluded_external_js', array($this,'rocket_minify_excluded_external_js') );
+
+		if(!$this->is_activate_shield()){
+			return $this;
+		}
+
+		$this->get_script('usercentrics_styles')->set_is_enqueued();
+
+		add_action( 'wp_head', array($this,'load_privacy_shield'));
+		add_filter( 'embed_oembed_html', array($this,'embed_oembed_html'), 99);
+
 		return $this;
+	}
+	public function load_cookie_banner(){
+		echo '<script src="https://app.usercentrics.eu/latest/main.js" id="pw66MUEa"></script>';
+
+		/* // @todo: allow insert scripts into header
+$this->get_script('usercentrics')
+	->set_type('js')
+	->set_is_enqueued()
+	->set_path('https://app.usercentrics.eu/latest/main.js')
+	->set_custom_attributes(' id="'.$this->get_setting('id')->run_type()->get_data().'"');
+*/
+	}
+	public function load_privacy_shield(){
+		echo '<meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu">';
+		echo '<script src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>';
+
+		// @todo: check why 403-response when loading this, seems to not have any style effect
+		echo '<script defer src="https://privacy-proxy.usercentrics.eu/latest/uc-block-ui.bundle.js"></script>';
+
+
+		/* // @todo: allow insert scripts into header
+$this->get_script('usercentrics_block')
+	->set_type('js')
+	->set_is_enqueued()
+	->set_path('https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js')
+	->set_deps(array($this->get_script('usercentrics')->get_handle()));
+
+$this->get_script('usercentrics_block_ui')
+	->set_type('js')
+	->set_is_enqueued()
+	->set_path('https://privacy-proxy.usercentrics.eu/latest/uc-block-ui.bundle.js')
+	->set_deps(array($this->get_script('usercentrics_block')->get_handle()));
+*/
 	}
 	protected function register_scripts(): usercentrics{
 		// Activate Consent Management in Tracking Manager
@@ -126,7 +188,30 @@ class usercentrics extends modules {
 			}, 10, 2);
 		}
 
+		if($this->is_activate_shield()){
+			$this->get_script('usercentrics_styles')
+				->set_is_enqueued()
+				->set_path('lib/frontend/css/default.css')
+				->set_custom_attributes(' id="'.$this->get_setting('id')->run_type()->get_data().'"');
+		}
+
 		return $this;
+	}
+	public function embed_oembed_html(string $output){
+		// make sure that oembed content has uc-src as default e.g. when client has noscript addon activated
+		$output = str_replace(
+			'src',
+			'uc-src',
+			$output);
+
+		// twitter is cached, but make sure to no load twitter js without consent
+		$output = str_replace(
+			'async uc-src',
+			'type="text/plain" data-usercentrics="Twitter Plugin" src',
+			$output
+		);
+
+		return $output;
 	}
 	// never combine external JS
 	public function rocket_minify_excluded_external_js($pattern){
