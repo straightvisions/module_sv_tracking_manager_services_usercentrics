@@ -155,7 +155,7 @@ $this->get_script('usercentrics')
 		echo '<script src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>';
 
 		// @todo: check why 403-response when loading this, seems to not have any style effect
-		echo '<script defer src="https://privacy-proxy.usercentrics.eu/latest/uc-block-ui.bundle.js"></script>';
+		// echo '<script defer src="https://privacy-proxy.usercentrics.eu/latest/uc-block-ui.bundle.js"></script>';
 
 
 		/* // @todo: allow insert scripts into header
