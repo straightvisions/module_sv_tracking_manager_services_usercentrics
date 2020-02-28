@@ -47,13 +47,12 @@ class usercentrics extends modules {
 		$this->set_section_title( __('Usercentrics', 'sv_tracking_manager' ) )
 			->set_section_desc(__( sprintf('%sUsercentrics Login%s', '<a target="_blank" href="https://admin.usercentrics.com/#/">','</a>'), 'sv_tracking_manager' ))
 			->set_section_type( 'settings' )
+			->set_section_template_path( $this->get_path( '/lib/backend/tpl/settings.php' ) )
 			->load_settings()
-			->register_scripts()
 			->get_root()->add_section( $this );
 
-		$this->add_service();
-
 		add_action('init', array($this, 'load'));
+		add_action('init', array($this, 'register_scripts'));
 	}
 
 	protected function load_settings(): usercentrics {
@@ -78,35 +77,69 @@ class usercentrics extends modules {
 			)
 			->load_type( 'checkbox' );
 
+		// roles are not available before init hook
+		add_action('init', function() {
+			global $wp_roles;
+			$all_roles			= $wp_roles->roles;
+			$editable_roles		= apply_filters('editable_roles', $all_roles);
+			$roles				= array();
+
+			foreach($editable_roles as $name => $role){
+				$roles[$name]		= $role['name'];
+			}
+
+			$this->get_setting('roles')
+				->set_title( __( 'User Roles', 'sv_tracking_manager' ) )
+				->set_description(__('Disable UserCentrics for the User Roles selected','sv_tracking_manager'))
+				->load_type( 'checkbox' )
+				->set_options($roles);
+		});
 
 		return $this;
 	}
 	public function is_active(): bool{
 		// activate not set
-		if(!$this->get_setting('activate')->run_type()->get_data()){
+		if(!$this->get_setting('activate')->get_data()){
 			return false;
 		}
 		// activate not true
-		if($this->get_setting('activate')->run_type()->get_data() !== '1'){
+		if($this->get_setting('activate')->get_data() !== '1'){
 			return false;
 		}
 		// Setting ID not set
-		if(!$this->get_setting('id')->run_type()->get_data()){
+		if(!$this->get_setting('id')->get_data()){
 			return false;
 		}
 		// Setting ID empty
-		if(strlen(trim($this->get_setting('id')->run_type()->get_data())) === 0){
+		if(strlen(trim($this->get_setting('id')->get_data())) === 0){
 			return false;
 		}
+		// maybe roles disabled
+		if(!is_admin() && $this->get_setting('roles')->get_data() && is_array($this->get_setting('roles')->get_data())){
+			$user = wp_get_current_user();
+
+			foreach($this->get_setting('roles')->get_data() as $name => $status) {
+				if($status == '1') {
+					if (in_array($name, (array)$user->roles)) {
+						return false;
+					}
+				}
+			}
+		}
+		// not compatible with Divi Builder
+		if(isset($_GET['et_fb']) && $_GET['et_fb'] == '1'){
+			return false;
+		}
+
 		return true;
 	}
 	public function is_activate_shield(): bool{
 		// Setting ID not set
-		if(!$this->get_setting('activate_shield')->run_type()->get_data()){
+		if(!$this->get_setting('activate_shield')->get_data()){
 			return false;
 		}
 		// Setting ID empty
-		if(strlen(trim($this->get_setting('activate_shield')->run_type()->get_data())) === 0){
+		if(strlen(trim($this->get_setting('activate_shield')->get_data())) === 0){
 			return false;
 		}
 		return true;
@@ -147,7 +180,7 @@ $this->get_script('usercentrics')
 	->set_type('js')
 	->set_is_enqueued()
 	->set_path('https://app.usercentrics.eu/latest/main.js')
-	->set_custom_attributes(' id="'.$this->get_setting('id')->run_type()->get_data().'"');
+	->set_custom_attributes(' id="'.$this->get_setting('id')->get_data().'"');
 */
 	}
 	public function load_privacy_shield(){
@@ -172,7 +205,7 @@ $this->get_script('usercentrics_block_ui')
 	->set_deps(array($this->get_script('usercentrics_block')->get_handle()));
 */
 	}
-	protected function register_scripts(): usercentrics{
+	public function register_scripts(): usercentrics{
 		// Activate Consent Management in Tracking Manager
 		if($this->is_active()) {
 			add_filter('sv_tracking_manager_consent_management', function (bool $active) {
@@ -192,7 +225,7 @@ $this->get_script('usercentrics_block_ui')
 			$this->get_script('usercentrics_styles')
 				->set_is_enqueued()
 				->set_path('lib/frontend/css/default.css')
-				->set_custom_attributes(' id="'.$this->get_setting('id')->run_type()->get_data().'"');
+				->set_custom_attributes(' id="'.$this->get_setting('id')->get_data().'"');
 		}
 
 		return $this;
