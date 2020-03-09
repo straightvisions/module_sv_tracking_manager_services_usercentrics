@@ -173,7 +173,7 @@ class usercentrics extends modules {
 		return $this;
 	}
 	public function load_cookie_banner(){
-		echo '<script src="https://app.usercentrics.eu/latest/main.js" id="pw66MUEa"></script>';
+		echo '<script src="https://app.usercentrics.eu/latest/main.js" id="'.$this->get_setting('id')->get_data().'"></script>';
 
 		/* // @todo: allow insert scripts into header
 $this->get_script('usercentrics')
