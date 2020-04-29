@@ -1,4 +1,4 @@
 .uc-embedding-container{
-	overflow:hidden;
+	overflow:hidden !important;
 	width:100% !important;
 };

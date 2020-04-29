@@ -158,7 +158,7 @@ class usercentrics extends modules {
 			return $this;
 		}
 
-		add_action( 'wp_head', array($this,'load_cookie_banner'));
+		add_action( 'wp_head', array($this,'load_cookie_banner'), 1);
 		add_filter( 'rocket_minify_excluded_external_js', array($this,'rocket_minify_excluded_external_js') );
 
 		if(!$this->is_activate_shield()){
@@ -167,13 +167,14 @@ class usercentrics extends modules {
 
 		$this->get_script('usercentrics_styles')->set_is_enqueued();
 
-		add_action( 'wp_head', array($this,'load_privacy_shield'));
+		add_action( 'wp_head', array($this,'load_privacy_shield'), 2);
 		add_filter( 'embed_oembed_html', array($this,'embed_oembed_html'), 99);
+		//add_filter( 'the_content', array($this,'the_content'),99 );
 
 		return $this;
 	}
 	public function load_cookie_banner(){
-		echo '<script src="https://app.usercentrics.eu/latest/main.js" id="'.$this->get_setting('id')->get_data().'"></script>';
+		echo '<script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="'.$this->get_setting('id')->get_data().'" async="false"></script>';
 
 		/* // @todo: allow insert scripts into header
 $this->get_script('usercentrics')
@@ -185,7 +186,7 @@ $this->get_script('usercentrics')
 	}
 	public function load_privacy_shield(){
 		echo '<meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu">';
-		echo '<script src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>';
+		echo '<script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js" async="false"></script>';
 
 		// @todo: check why 403-response when loading this, seems to not have any style effect
 		// echo '<script defer src="https://privacy-proxy.usercentrics.eu/latest/uc-block-ui.bundle.js"></script>';
@@ -243,6 +244,15 @@ $this->get_script('usercentrics_block_ui')
 			'type="text/plain" data-usercentrics="Twitter Plugin" src',
 			$output
 		);
+
+		return $output;
+	}
+	public function the_content(string $output){
+		// make sure that oembed content has uc-src as default e.g. when client has noscript addon activated
+		$output = str_replace(
+			'<iframe src=',
+			'<iframe uc-src=',
+			$output);
 
 		return $output;
 	}
