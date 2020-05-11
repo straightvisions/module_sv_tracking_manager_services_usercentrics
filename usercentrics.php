@@ -160,6 +160,7 @@ class usercentrics extends modules {
 
 		add_action( 'wp_head', array($this,'load_cookie_banner'), 1);
 		add_filter( 'rocket_minify_excluded_external_js', array($this,'rocket_minify_excluded_external_js') );
+		add_filter( 'rocket_exclude_defer_js', array($this,'rocket_exclude_files_defer') );
 
 		if(!$this->is_activate_shield()){
 			return $this;
@@ -174,7 +175,7 @@ class usercentrics extends modules {
 		return $this;
 	}
 	public function load_cookie_banner(){
-		echo '<script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="'.$this->get_setting('id')->get_data().'" async="false"></script>';
+		echo '<script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="'.$this->get_setting('id')->get_data().'"></script>';
 
 		/* // @todo: allow insert scripts into header
 $this->get_script('usercentrics')
@@ -186,7 +187,7 @@ $this->get_script('usercentrics')
 	}
 	public function load_privacy_shield(){
 		echo '<meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu">';
-		echo '<script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js" async="false"></script>';
+		echo '<script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>';
 
 		// @todo: check why 403-response when loading this, seems to not have any style effect
 		// echo '<script defer src="https://privacy-proxy.usercentrics.eu/latest/uc-block-ui.bundle.js"></script>';
@@ -261,5 +262,11 @@ $this->get_script('usercentrics_block_ui')
 		$pattern[] = 'usercentrics';
 
 		return $pattern;
+	}
+	function rocket_exclude_files_defer( $excluded_files = array() ) {
+		$excluded_files[] = 'https://app.usercentrics.eu/latest/main.js';
+		$excluded_files[] = 'https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js';
+
+		return $excluded_files;
 	}
 }
