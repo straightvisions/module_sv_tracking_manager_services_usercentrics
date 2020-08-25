@@ -67,11 +67,11 @@ class usercentrics extends modules {
 			->load_type( 'text' );
 
 		$this->get_setting('activate_shield')
-			->set_title( __( 'Activate Privacy Shield', 'sv_tracking_manager' ) )
+			->set_title( __( 'Activate Smart Data Protector', 'sv_tracking_manager' ) )
 			->set_description(
 				sprintf(
-					__('Enable %1$sUsercentrics Privacy Shield%2$s support to ask user before loading embeded content like Youtube or Google Maps.','sv_tracking_manager'),
-				'<a href="' . esc_url( 'https://docs.usercentrics.com/#/privacy-shield' ) . '" target="_blank">',
+					__('Enable %1$sUsercentrics Smart Data Protector%2$s support to ask user before loading embeded content like Youtube or Google Maps.','sv_tracking_manager'),
+				'<a href="' . esc_url( 'https://usercentrics.com/de/smart-data-protector/' ) . '" target="_blank">',
 				'</a>'
 				)
 			)
