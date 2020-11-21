@@ -77,6 +77,17 @@ class usercentrics extends modules {
 			)
 			->load_type( 'checkbox' );
 
+		$this->get_setting('api_version')
+			->set_title( __( 'API Version', 'sv_tracking_manager' ) )
+			->set_description(__('Choose between CMP 1 (stable default), CMP 2 (beta) or CMP 2 + legacy (beta + legacy browser support)','sv_tracking_manager'))
+			->set_options(array(
+				'cmp_v1'			=> 'CMP v1',
+				'cmp_v2'			=> 'CMP v2',
+				'cmp_v2_legacy'		=> 'CMP v2 + legacy browser support'
+			))
+			->set_default_value('cmp_v1')
+			->load_type( 'select' );
+
 		// roles are not available before init hook
 		add_action('init', function() {
 			global $wp_roles;
@@ -175,7 +186,13 @@ class usercentrics extends modules {
 		return $this;
 	}
 	public function load_cookie_banner(){
-		echo '<script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="'.$this->get_setting('id')->get_data().'"></script>';
+		if($this->get_setting('api_version')->get_data() == 'cmp_v2'){
+			echo '<script id="usercentrics-cmp"  data-settings-id="'.$this->get_setting('id')->get_data().'" src="https://app.usercentrics.eu/browser-ui/latest/bundle.js" defer></script>';
+		}elseif($this->get_setting('api_version')->get_data() == 'cmp_v2_legacy'){
+			echo '<script id="usercentrics-cmp"  data-settings-id="'.$this->get_setting('id')->get_data().'" src="https://app.usercentrics.eu/browser-ui/latest/bundle_legacy.js" defer></script>';
+		}else{
+			echo '<script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="'.$this->get_setting('id')->get_data().'"></script>';
+		}
 
 		/* // @todo: allow insert scripts into header
 $this->get_script('usercentrics')
