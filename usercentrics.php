@@ -187,42 +187,16 @@ class usercentrics extends modules {
 	}
 	public function load_cookie_banner(){
 		if($this->get_setting('api_version')->get_data() == 'cmp_v2'){
-			echo '<script id="usercentrics-cmp"  data-settings-id="'.$this->get_setting('id')->get_data().'" src="https://app.usercentrics.eu/browser-ui/latest/bundle.js" defer></script>';
+			echo '<script id="usercentrics-cmp"  data-settings-id="'.$this->get_setting('id')->get_data().'" src="'.apply_filters('usercentrics-cmp','https://app.usercentrics.eu/browser-ui/latest/bundle.js').'" defer></script>';
 		}elseif($this->get_setting('api_version')->get_data() == 'cmp_v2_legacy'){
-			echo '<script id="usercentrics-cmp"  data-settings-id="'.$this->get_setting('id')->get_data().'" src="https://app.usercentrics.eu/browser-ui/latest/bundle_legacy.js" defer></script>';
+			echo '<script id="usercentrics-cmp"  data-settings-id="'.$this->get_setting('id')->get_data().'" src="'.apply_filters('usercentrics-cmp','https://app.usercentrics.eu/browser-ui/latest/bundle_legacy.js').'" defer></script>';
 		}else{
-			echo '<script type="application/javascript" src="https://app.usercentrics.eu/latest/main.js" id="'.$this->get_setting('id')->get_data().'"></script>';
+			echo '<script type="application/javascript" src="'.apply_filters('usercentrics-cmp','https://app.usercentrics.eu/latest/main.js').'" id="'.$this->get_setting('id')->get_data().'"></script>';
 		}
-
-		/* // @todo: allow insert scripts into header
-$this->get_script('usercentrics')
-	->set_type('js')
-	->set_is_enqueued()
-	->set_path('https://app.usercentrics.eu/latest/main.js')
-	->set_custom_attributes(' id="'.$this->get_setting('id')->get_data().'"');
-*/
 	}
 	public function load_privacy_shield(){
 		echo '<meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu">';
-		echo '<script type="application/javascript" src="https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js"></script>';
-
-		// @todo: check why 403-response when loading this, seems to not have any style effect
-		// echo '<script defer src="https://privacy-proxy.usercentrics.eu/latest/uc-block-ui.bundle.js"></script>';
-
-
-		/* // @todo: allow insert scripts into header
-$this->get_script('usercentrics_block')
-	->set_type('js')
-	->set_is_enqueued()
-	->set_path('https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js')
-	->set_deps(array($this->get_script('usercentrics')->get_handle()));
-
-$this->get_script('usercentrics_block_ui')
-	->set_type('js')
-	->set_is_enqueued()
-	->set_path('https://privacy-proxy.usercentrics.eu/latest/uc-block-ui.bundle.js')
-	->set_deps(array($this->get_script('usercentrics_block')->get_handle()));
-*/
+		echo '<script type="application/javascript" src="'.apply_filters('usercentrics-privacy-shield','https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js').'"></script>';
 	}
 	public function register_scripts(): usercentrics{
 		// Activate Consent Management in Tracking Manager
