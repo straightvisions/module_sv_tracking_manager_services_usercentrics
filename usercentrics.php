@@ -14,32 +14,35 @@ namespace sv_tracking_manager;
 class usercentrics extends modules {
 	private $consent_IDs		= array(
 		// bing
-		'sv_tracking_manager_modules_bing_scripts_default'							=> 'Bing Ads',
+		'sv_tracking_manager_bing_scripts_default'							=> 'Bing Ads',
 
 		// facebook
-		'sv_tracking_manager_modules_facebook_scripts_default'						=> 'Facebook Pixel',
+		'sv_tracking_manager_facebook_scripts_default'						=> 'Facebook Pixel',
 
 		// google_analytics
-		'sv_tracking_manager_modules_google_analytics_scripts_ga'					=> 'Google Analytics',
-		'sv_tracking_manager_modules_google_analytics_scripts_default'				=> 'Google Analytics',
-		'sv_tracking_manager_modules_google_analytics_scripts_events'				=> 'Google Analytics',
-		'sv_tracking_manager_modules_google_analytics_scripts_events_scroll'		=> 'Google Analytics',
+		'sv_tracking_manager_google_analytics_scripts_ga'					=> 'Google Analytics',
+		'sv_tracking_manager_google_analytics_scripts_default'				=> 'Google Analytics',
+		'sv_tracking_manager_google_analytics_scripts_events'				=> 'Google Analytics',
+		'sv_tracking_manager_google_analytics_scripts_events_scroll'		=> 'Google Analytics',
+
+		// google_tag_manager
+		'sv_tracking_manager_google_tag_manager_scripts_default'			=> 'Google Tag Manager',
 
 		// google_optimize
-		'sv_tracking_manager_modules_google_optimize_scripts_default'				=> 'Google Optimize',
-		'sv_tracking_manager_modules_google_optimize_scripts_anti_flicker'			=> 'Google Optimize',
+		'sv_tracking_manager_google_optimize_scripts_default'				=> 'Google Optimize',
+		'sv_tracking_manager_google_optimize_scripts_anti_flicker'			=> 'Google Optimize',
 
 		// hotjar
-		'sv_tracking_manager_modules_hotjar_scripts_default'						=> 'Hotjar',
+		'sv_tracking_manager_hotjar_scripts_default'						=> 'Hotjar',
 
 		// linkedin
-		'sv_tracking_manager_modules_linkedin_scripts_default'						=> 'LinkedIn Ads',
+		'sv_tracking_manager_linkedin_scripts_default'						=> 'LinkedIn Ads',
 
 		// mouseflow
-		'sv_tracking_manager_modules_mouseflow_scripts_default'					=> 'Mouseflow',
+		'sv_tracking_manager_mouseflow_scripts_default'					=> 'Mouseflow',
 
 		// yahoo
-		'sv_tracking_manager_modules_yahoo_scripts_default'						=> 'Yahoo Gemini',
+		'sv_tracking_manager_yahoo_scripts_default'						=> 'Yahoo Gemini',
 	);
 
 	public function init() {
