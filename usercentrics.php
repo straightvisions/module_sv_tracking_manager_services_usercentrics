@@ -167,6 +167,11 @@ class usercentrics extends modules {
 	public function get_consent_ID(string $ID): string{
 		return $this->consent_IDs[$ID];
 	}
+	public function remove_consent_ID(string $ID): bool{
+		unset($this->consent_IDs[$ID]);
+
+		return true;
+	}
 	public function has_consent_ID(string $ID): bool{
 		return isset($this->consent_IDs[$ID]) ? true : false;
 	}
