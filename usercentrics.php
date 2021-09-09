@@ -43,6 +43,9 @@ class usercentrics extends modules {
 
 		// yahoo
 		'sv_tracking_manager_yahoo_scripts_default'						=> 'Yahoo Gemini',
+
+		// plausible
+		'sv_tracking_manager_plausible_scripts_default'					=> 'Plausible',
 	);
 
 	public function init() {
