@@ -87,11 +87,12 @@ class usercentrics extends modules {
 			->set_title( __( 'API Version', 'sv_tracking_manager' ) )
 			->set_description(__('Choose between CMP 1 (stable default), CMP 2 (beta) or CMP 2 + legacy (beta + legacy browser support)','sv_tracking_manager'))
 			->set_options(array(
+				'loader'			=> 'Loader (Recommended)',
 				'cmp_v1'			=> 'CMP v1',
 				'cmp_v2'			=> 'CMP v2',
 				'cmp_v2_legacy'		=> 'CMP v2 + legacy browser support'
 			))
-			->set_default_value('cmp_v1')
+			->set_default_value('loader')
 			->load_type( 'select' );
 
 		// roles are not available before init hook
@@ -197,7 +198,9 @@ class usercentrics extends modules {
 		return $this;
 	}
 	public function load_cookie_banner(){
-		if($this->get_setting('api_version')->get_data() == 'cmp_v2'){
+		if($this->get_setting('api_version')->get_data() == 'loader'){
+			echo '<script id="usercentrics-cmp"  data-settings-id="'.$this->get_setting('id')->get_data().'" src="'.apply_filters('usercentrics-cmp','https://app.usercentrics.eu/browser-ui/latest/loader.js').'" defer></script>';
+		}elseif($this->get_setting('api_version')->get_data() == 'cmp_v2'){
 			echo '<script id="usercentrics-cmp"  data-settings-id="'.$this->get_setting('id')->get_data().'" src="'.apply_filters('usercentrics-cmp','https://app.usercentrics.eu/browser-ui/latest/bundle.js').'" defer></script>';
 		}elseif($this->get_setting('api_version')->get_data() == 'cmp_v2_legacy'){
 			echo '<script id="usercentrics-cmp"  data-settings-id="'.$this->get_setting('id')->get_data().'" src="'.apply_filters('usercentrics-cmp','https://app.usercentrics.eu/browser-ui/latest/bundle_legacy.js').'" defer></script>';
