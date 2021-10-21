@@ -28,9 +28,6 @@ class usercentrics extends modules {
 		// google_tag_manager
 		'sv_tracking_manager_google_tag_manager_scripts_default'			=> 'Google Tag Manager',
 
-		// google_optimize
-		'sv_tracking_manager_extended_google_optimize_scripts_optimize'				=> 'Google Optimize',
-
 		// hotjar
 		'sv_tracking_manager_hotjar_scripts_default'						=> 'Hotjar',
 
@@ -45,6 +42,15 @@ class usercentrics extends modules {
 
 		// plausible
 		'sv_tracking_manager_plausible_scripts_default'					=> 'Plausible',
+
+		// extended
+
+		// google_optimize
+		'sv_tracking_manager_extended_google_optimize_scripts_optimize'	=> 'Google Optimize',
+
+		// Product Recommendation Quiz
+		'product-recommendation-quiz-for-ecommerce'						=> 'Product Recommendation Quiz',
+
 	);
 
 	public function init() {
