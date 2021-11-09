@@ -32,7 +32,7 @@ class usercentrics extends modules {
 		'sv_tracking_manager_hotjar_scripts_default'						=> 'Hotjar',
 
 		// linkedin
-		'sv_tracking_manager_linkedin_scripts_default'						=> 'LinkedIn Ads',
+		'sv_tracking_manager_linkedin_scripts_default'						=> 'LinkedIn Insight Tag',
 
 		// mouseflow
 		'sv_tracking_manager_mouseflow_scripts_default'					=> 'Mouseflow',
