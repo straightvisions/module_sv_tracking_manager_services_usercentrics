@@ -217,7 +217,7 @@ class usercentrics extends modules {
 		}
 	}
 	public function load_privacy_shield(){
-		echo '<meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu">';
+		echo '<meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu" />';
 		echo '<script type="application/javascript" src="'.apply_filters('usercentrics-privacy-shield','https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js').'"></script>';
 	}
 	public function register_scripts(): usercentrics{
@@ -229,7 +229,12 @@ class usercentrics extends modules {
 
 			add_filter('sv_tracking_manager_data_attributes', function (string $attributes, \sv_core\scripts $script) {
 				if($this->has_consent_ID($script->get_handle())){
-					return $attributes . ' data-usercentrics="'.$this->get_consent_ID($script->get_handle()).'"';
+					// avoid to double add custom attribute if it's already applied
+					if(strpos($attributes, ' data-usercentrics="'.$this->get_consent_ID($script->get_handle()).'"') === false) {
+						return $attributes . ' data-usercentrics="'.$this->get_consent_ID($script->get_handle()).'"';
+					}else{
+						return $attributes;
+					}
 				}else{
 					return $attributes;
 				}
