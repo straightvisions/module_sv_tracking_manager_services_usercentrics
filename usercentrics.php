@@ -31,6 +31,9 @@ class usercentrics extends modules {
 		// hotjar
 		'sv_tracking_manager_hotjar_scripts_default'						=> 'Hotjar',
 
+		// hubspot
+		'sv_tracking_manager_hubspot_scripts_default'						=> 'HubSpot',
+
 		// linkedin
 		'sv_tracking_manager_linkedin_scripts_default'						=> 'LinkedIn Insight Tag',
 
