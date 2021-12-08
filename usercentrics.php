@@ -217,7 +217,7 @@ class usercentrics extends modules {
 		}
 	}
 	public function load_privacy_shield(){
-		echo '<meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu" />';
+		echo '<meta data-privacy-proxy-server="https://privacy-proxy-server.usercentrics.eu" name="usercentrics_privacy_proxy" content="" />';
 		echo '<script type="application/javascript" src="'.apply_filters('usercentrics-privacy-shield','https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js').'"></script>';
 	}
 	public function register_scripts(): usercentrics{
