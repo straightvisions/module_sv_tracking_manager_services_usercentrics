@@ -13,9 +13,6 @@ namespace sv_tracking_manager;
 
 class usercentrics extends modules {
 	private $consent_IDs		= array(
-		// bing
-		'sv_tracking_manager_bing_scripts_default'							=> 'Bing Ads',
-
 		// facebook
 		'sv_tracking_manager_facebook_scripts_default'						=> 'Facebook Pixel',
 
@@ -36,6 +33,9 @@ class usercentrics extends modules {
 
 		// linkedin
 		'sv_tracking_manager_linkedin_scripts_default'						=> 'LinkedIn Insight Tag',
+
+		// microsoft_advertising
+		'sv_tracking_manager_microsoft_advertising_scripts_default'		=> 'Microsoft Advertising',
 
 		// mouseflow
 		'sv_tracking_manager_mouseflow_scripts_default'					=> 'Mouseflow',
