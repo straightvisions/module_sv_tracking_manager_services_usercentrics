@@ -34,6 +34,9 @@ class usercentrics extends modules {
 		// linkedin
 		'sv_tracking_manager_linkedin_scripts_default'						=> 'LinkedIn Insight Tag',
 
+		// mailchimp
+		'sv_tracking_manager_mailchimp_scripts_default'					=> 'Mailchimp',
+
 		// microsoft_advertising
 		'sv_tracking_manager_microsoft_advertising_scripts_default'		=> 'Microsoft Advertising',
 
