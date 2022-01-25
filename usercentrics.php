@@ -14,48 +14,51 @@ namespace sv_tracking_manager;
 class usercentrics extends modules {
 	private $consent_IDs		= array(
 		// facebook
-		'sv_tracking_manager_facebook_scripts_default'						=> 'Facebook Pixel',
+		'sv_tracking_manager_facebook_scripts_default'							=> 'Facebook Pixel',
 
 		// google_analytics
-		'sv_tracking_manager_google_analytics_scripts_ga'					=> 'Google Analytics',
-		'sv_tracking_manager_google_analytics_scripts_default'				=> 'Google Analytics',
-		'sv_tracking_manager_google_analytics_scripts_events'				=> 'Google Analytics',
-		'sv_tracking_manager_google_analytics_scripts_events_scroll'		=> 'Google Analytics',
+		'sv_tracking_manager_google_analytics_scripts_ga'						=> 'Google Analytics',
+		'sv_tracking_manager_google_analytics_scripts_default'					=> 'Google Analytics',
+		'sv_tracking_manager_google_analytics_scripts_events'					=> 'Google Analytics',
+		'sv_tracking_manager_google_analytics_scripts_events_scroll'			=> 'Google Analytics',
 
 		// google_tag_manager
-		'sv_tracking_manager_google_tag_manager_scripts_default'			=> 'Google Tag Manager',
+		'sv_tracking_manager_google_tag_manager_scripts_default'				=> 'Google Tag Manager',
 
 		// hotjar
-		'sv_tracking_manager_hotjar_scripts_default'						=> 'Hotjar',
+		'sv_tracking_manager_hotjar_scripts_default'							=> 'Hotjar',
 
 		// hubspot
-		'sv_tracking_manager_hubspot_scripts_default'						=> 'HubSpot',
+		'sv_tracking_manager_hubspot_scripts_default'							=> 'HubSpot',
 
 		// linkedin
-		'sv_tracking_manager_linkedin_scripts_default'						=> 'LinkedIn Insight Tag',
+		'sv_tracking_manager_linkedin_scripts_default'							=> 'LinkedIn Insight Tag',
 
 		// mailchimp
-		'sv_tracking_manager_mailchimp_scripts_default'					=> 'Mailchimp',
+		'sv_tracking_manager_mailchimp_scripts_default'						=> 'Mailchimp',
 
 		// microsoft_advertising
-		'sv_tracking_manager_microsoft_advertising_scripts_default'		=> 'Microsoft Advertising',
+		'sv_tracking_manager_microsoft_advertising_scripts_default'			=> 'Microsoft Advertising',
 
 		// mouseflow
-		'sv_tracking_manager_mouseflow_scripts_default'					=> 'Mouseflow',
+		'sv_tracking_manager_mouseflow_scripts_default'						=> 'Mouseflow',
+
+		// outbrain
+		'sv_tracking_manager_extended_outbrain_scripts_conversion_tracking'	=> 'Outbrain Conversion Tracking',
 
 		// yahoo
-		'sv_tracking_manager_yahoo_scripts_default'						=> 'Yahoo Gemini',
+		'sv_tracking_manager_yahoo_scripts_default'							=> 'Yahoo Gemini',
 
 		// plausible
-		'sv_tracking_manager_plausible_scripts_default'					=> 'Plausible',
+		'sv_tracking_manager_plausible_scripts_default'						=> 'Plausible',
 
 		// extended
 
 		// google_optimize
-		'sv_tracking_manager_extended_google_optimize_scripts_optimize'	=> 'Google Optimize',
+		'sv_tracking_manager_extended_google_optimize_scripts_optimize'		=> 'Google Optimize',
 
 		// Product Recommendation Quiz
-		'product-recommendation-quiz-for-ecommerce'						=> 'Product Recommendation Quiz',
+		'product-recommendation-quiz-for-ecommerce'							=> 'Product Recommendation Quiz',
 
 	);
 
