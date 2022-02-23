@@ -60,6 +60,9 @@ class usercentrics extends modules {
 		// Product Recommendation Quiz
 		'product-recommendation-quiz-for-ecommerce'							=> 'Product Recommendation Quiz',
 
+		// hubspot
+		'sv_tracking_manager_extended_hubspot_scripts_meetings'				=> 'HubSpot',
+
 	);
 
 	public function init() {
