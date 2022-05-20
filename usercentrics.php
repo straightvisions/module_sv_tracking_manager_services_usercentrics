@@ -1,16 +1,6 @@
 <?php
 namespace sv_tracking_manager;
 
-/**
- * @version         1.000
- * @author			straightvisions GmbH
- * @package			sv_tracking_manager
- * @copyright		2019 straightvisions GmbH
- * @link			https://straightvisions.com
- * @since			1.000
- * @license			See license.txt or https://straightvisions.com
- */
-
 class usercentrics extends modules {
 	private $consent_IDs		= array(
 		// facebook
@@ -66,6 +56,9 @@ class usercentrics extends modules {
 		// finance_ads
 		'sv_tracking_manager_extended_finance_ads_scripts_default'						=> 'FinanceAds',
 		'sv_tracking_manager_extended_finance_ads_scripts_conversion_tracking'			=> 'FinanceAds',
+
+		// google_customer_reviews
+		'sv_tracking_manager_extended_google_customer_reviews_scripts_default'			=> 'Google Customer Reviews',
 	);
 
 	public function init() {
