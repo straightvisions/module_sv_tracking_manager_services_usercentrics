@@ -59,6 +59,7 @@ class usercentrics extends modules {
 
 		// google_customer_reviews
 		'sv_tracking_manager_extended_google_customer_reviews_scripts_default'			=> 'Google Customer Reviews',
+		'sv_tracking_manager_extended_google_customer_reviews_scripts_options'			=> 'Google Customer Reviews',
 	);
 
 	public function init() {
