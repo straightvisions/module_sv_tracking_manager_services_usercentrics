@@ -195,6 +195,13 @@ class usercentrics extends modules {
 			return $this;
 		}
 
+		if($this->get_module('google_analytics')->get_setting('ga4')->get_data()){
+			$this->consent_IDs['sv_tracking_manager_google_analytics_scripts_ga']				= 'Google Analytics 4';
+			$this->consent_IDs['sv_tracking_manager_google_analytics_scripts_default']			= 'Google Analytics 4';
+			$this->consent_IDs['sv_tracking_manager_google_analytics_scripts_events']			= 'Google Analytics 4';
+			$this->consent_IDs['sv_tracking_manager_google_analytics_scripts_events_scroll']	= 'Google Analytics 4';
+		}
+
 		add_action( 'wp_head', array($this,'load_cookie_banner'), 1);
 		add_filter( 'rocket_minify_excluded_external_js', array($this,'rocket_minify_excluded_external_js') );
 		add_filter( 'rocket_exclude_defer_js', array($this,'rocket_exclude_files_defer') );
