@@ -50,6 +50,9 @@ class usercentrics extends modules {
 		// Product Recommendation Quiz
 		'product-recommendation-quiz-for-ecommerce'							=> 'Product Recommendation Quiz',
 
+		// Pingdom
+		'sv_tracking_manager_extended_pingdom_scripts_default'				=> 'Pingdom (with Performance Tracking)',
+
 		// hubspot
 		'sv_tracking_manager_extended_hubspot_scripts_meetings'				=> 'HubSpot',
 
