@@ -56,6 +56,9 @@ class usercentrics extends modules {
 		// hubspot
 		'sv_tracking_manager_extended_hubspot_scripts_meetings'				=> 'HubSpot',
 
+		// typeform
+		'sv_tracking_manager_extended_typeform_scripts_default'						=> 'Typeform',
+
 		// finance_ads
 		'sv_tracking_manager_extended_finance_ads_scripts_default'						=> 'FinanceAds',
 		'sv_tracking_manager_extended_finance_ads_scripts_conversion_tracking'			=> 'FinanceAds',
