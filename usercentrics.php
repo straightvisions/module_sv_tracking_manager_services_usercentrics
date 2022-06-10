@@ -298,7 +298,6 @@ class usercentrics extends modules {
 		return $pattern;
 	}
 	function rocket_exclude_files_defer( $excluded_files = array() ) {
-		$excluded_files[] = 'https://app.usercentrics.eu/latest/main.js';
 		$excluded_files[] = 'https://privacy-proxy.usercentrics.eu/latest/uc-block.bundle.js';
 
 		return $excluded_files;
